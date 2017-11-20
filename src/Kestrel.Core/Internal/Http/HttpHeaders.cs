@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System.Runtime.Intrinsics.X86;
 
 namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
 {
@@ -115,6 +116,13 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
         protected static int BitCount(long value)
         {
             // see https://github.com/dotnet/corefx/blob/5965fd3756bc9dd9c89a27621eb10c6931126de2/src/System.Reflection.Metadata/src/System/Reflection/Internal/Utilities/BitArithmetic.cs
+
+#if SSE
+            if (Popcnt.IsSupported)
+            {
+                return (int)Popcnt.PopCount((ulong)value);
+            }
+#endif
 
             const ulong Mask01010101 = 0x5555555555555555UL;
             const ulong Mask00110011 = 0x3333333333333333UL;

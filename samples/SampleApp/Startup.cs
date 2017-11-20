@@ -70,20 +70,20 @@ namespace SampleApp
                         listenOptions.UseConnectionLogging();
                     });
 
-                    options.Listen(IPAddress.Loopback, basePort + 1, listenOptions =>
-                    {
-                        listenOptions.UseHttps("testCert.pfx", "testPassword");
-                        listenOptions.UseConnectionLogging();
-                    });
+                    //options.Listen(IPAddress.Loopback, basePort + 1, listenOptions =>
+                    //{
+                    //    listenOptions.UseHttps("testCert.pfx", "testPassword");
+                    //    listenOptions.UseConnectionLogging();
+                    //});
 
-                    options.ListenLocalhost(basePort + 2, listenOptions =>
-                    {
-                        listenOptions.UseHttps("testCert.pfx", "testPassword");
-                    });
+                    //options.ListenLocalhost(basePort + 2, listenOptions =>
+                    //{
+                    //    listenOptions.UseHttps("testCert.pfx", "testPassword");
+                    //});
 
-                    options.ListenAnyIP(basePort + 3);
+                    //options.ListenAnyIP(basePort + 3);
 
-                    options.UseSystemd();
+                    //options.UseSystemd();
 
                     // The following section should be used to demo sockets
                     //options.ListenUnixSocket("/tmp/kestrel-test.sock");
@@ -100,7 +100,7 @@ namespace SampleApp
                      // options.ThreadCount = 4;
                  });
             }
-                
+
             return hostBuilder.Build().RunAsync();
         }
     }
